@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wingston Ng'ambi | Generative AI Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #9b59b6;
+            --secondary-dark: #8e44ad;
+            --accent: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --gray: #7f8c8d;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-dark: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            --gradient-light: linear-gradient(135deg, #ffffff 0%, #f1f2f6 100%);
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        h1, h2, h3, h4 {
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 50px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 80px;
+            height: 5px;
+            background: var(--gradient-primary);
+            border-radius: 3px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Header & Navigation */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 180px 0 120px;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.1"><polygon fill="white" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            -webkit-text-fill-color: white;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* About Me Section */
+        .about {
+            background: var(--light);
+            position: relative;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.03"><circle fill="%23667eea" cx="500" cy="500" r="400"/></svg>');
+            background-size: cover;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-img-container {
+            position: relative;
+        }
+
+        .profile-img {
+            width: 100%;
+            border-radius: 50%;
+            box-shadow: var(--shadow-lg);
+            border: 8px solid white;
+            transition: all 0.4s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .skill-tag {
+            background: var(--gradient-light);
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-3px);
+        }
+
+        .highlight-skill {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        /* About Course Section */
+        .course {
+            background: white;
+            position: relative;
+        }
+
+        .course::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.03"><polygon fill="%23f093fb" points="1000,0 0,1000 1000,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .course-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .course-card {
+            background: var(--gradient-light);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border-left: 5px solid;
+            border-image: var(--gradient-primary);
+            border-image-slice: 1;
+        }
+
+        .course-card h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .course-features {
+            list-style: none;
+            margin-top: 25px;
+        }
+
+        .course-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+        }
+
+        .course-features li:before {
+            content: '✓';
+            color: var(--primary);
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Weekly Submissions Section */
+        .submissions {
+            background: var(--light);
+            position: relative;
+        }
+
+        .submissions::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.03"><rect fill="%233498db" x="200" y="200" width="600" height="600" rx="50"/></svg>');
+            background-size: cover;
+        }
+
+        .weeks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .week-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .week-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .week-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .week-content {
+            padding: 25px;
+        }
+
+        .week-content p {
+            margin-bottom: 20px;
+        }
+
+        .week-status {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .status-upcoming {
+            background: #ffeaa7;
+            color: #e17055;
+        }
+
+        .status-completed {
+            background: #55efc4;
+            color: #00b894;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 70px 0 30px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-section h3 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #bdc3c7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content, .course-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            h1 {
+                font-size: 2.8rem;
+            }
+
+            h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 80%;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Wingston Ng'ambi</div>
+                <ul class="nav-links">
+                    <li><a href="#about">About Me</a></li>
+                    <li><a href="#course">About the Course</a></li>
+                    <li><a href="#submissions">Weekly Submissions</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Generative AI for Work & Research</h1>
+            <p>Exploring the intersection of artificial intelligence, epidemiology, and data science to advance public health research and practice.</p>
+            <div class="hero-btns">
+                <a href="#about" class="btn">Learn More</a>
+                <a href="#submissions" class="btn btn-secondary">View My Work</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="profile-img-container">
+                    <img src="https://via.placeholder.com/400" alt="Wingston Ng'ambi" class="profile-img">
+                </div>
+                <div>
+                    <h3>Wingston Ng'ambi, MSc Epidemiology, BSc Statistics and Demography</h3>
+                    <p>I am a dedicated Statistician, Epidemiologist, and Research Specialist with extensive experience in data management, monitoring, evaluation, and research. My work focuses on leveraging data to improve public health outcomes, particularly in HIV/AIDS, tuberculosis, maternal and child health, and non-communicable diseases.</p>
+                    <p>With a strong background in statistical analysis and epidemiological modeling, I'm passionate about applying cutting-edge technologies like Generative AI to enhance research methodologies and data interpretation in the health sector.</p>
+                    
+                    <h4>Key Skills</h4>
+                    <div class="skills">
+                        <span class="skill-tag">STATA</span>
+                        <span class="skill-tag">SPSS</span>
+                        <span class="skill-tag">R</span>
+                        <span class="skill-tag highlight-skill">Python</span>
+                        <span class="skill-tag highlight-skill">Julia</span>
+                        <span class="skill-tag">EpiData</span>
+                        <span class="skill-tag">CSPro</span>
+                        <span class="skill-tag">QGIS</span>
+                        <span class="skill-tag">SurveyCTO/ODK</span>
+                        <span class="skill-tag">Data Analysis</span>
+                        <span class="skill-tag">Epidemiology</span>
+                        <span class="skill-tag">Research Design</span>
+                        <span class="skill-tag">Disease Modeling</span>
+                        <span class="skill-tag">Statistical Modeling</span>
+                        <span class="skill-tag">Data Visualization</span>
+                        <span class="skill-tag">Machine Learning</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Course Section -->
+    <section id="course" class="course">
+        <div class="container">
+            <h2>About the Course</h2>
+            <div class="course-content">
+                <div>
+                    <h3>Generative AI for Work & Research</h3>
+                    <p>This course explores the practical applications of Generative AI in professional and research contexts. We'll examine how AI tools can enhance productivity, streamline workflows, and unlock new possibilities in data analysis and research methodologies.</p>
+                    <p>Through hands-on projects and case studies, we'll learn to leverage AI for tasks ranging from data processing and visualization to content creation and problem-solving in specialized domains like public health and epidemiology.</p>
+                    <a href="#" class="btn">Course Syllabus</a>
+                </div>
+                <div class="course-card">
+                    <h3>Course Highlights</h3>
+                    <ul class="course-features">
+                        <li>Understanding Generative AI fundamentals</li>
+                        <li>AI applications in research and data analysis</li>
+                        <li>Prompt engineering for specialized domains</li>
+                        <li>Ethical considerations in AI implementation</li>
+                        <li>Integrating AI tools into existing workflows</li>
+                        <li>Case studies in public health applications</li>
+                        <li>Hands-on projects with real-world data</li>
+                        <li>Future trends in AI for research</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weekly Submissions Section -->
+    <section id="submissions" class="submissions">
+        <div class="container">
+            <h2>My Weekly Submissions</h2>
+            <div class="weeks-grid">
+                <!-- Week 1 -->
+                <div class="week-card">
+                    <div class="week-header">
+                        <h3>Week 1</h3>
+                    </div>
+                    <div class="week-content">
+                        <h4>Introduction to Generative AI</h4>
+                        <p>Exploring the fundamentals of Generative AI and its potential applications in epidemiology and public health research.</p>
+                        <span class="week-status status-completed">Completed</span>
+                    </div>
+                </div>
+                
+                <!-- Week 2 -->
+                <div class="week-card">
+                    <div class="week-header">
+                        <h3>Week 2</h3>
+                    </div>
+                    <div class="week-content">
+                        <h4>AI Tools for Data Analysis</h4>
+                        <p>Comparing traditional statistical software with AI-enhanced tools for epidemiological data analysis.</p>
+                        <span class="week-status status-completed">Completed</span>
+                    </div>
+                </div>
+                
+                <!-- Week 3 -->
+                <div class="week-card">
+                    <div class="week-header">
+                        <h3>Week 3</h3>
+                    </div>
+                    <div class="week-content">
+                        <h4>Prompt Engineering for Research</h4>
+                        <p>Developing effective prompts to generate research questions, literature reviews, and analysis frameworks.</p>
+                        <span class="week-status status-completed">Completed</span>
+                    </div>
+                </div>
+                
+                <!-- Week 4 -->
+                <div class="week-card">
+                    <div class="week-header">
+                        <h3>Week 4</h3>
+                    </div>
+                    <div class="week-content">
+                        <h4>AI in Epidemiological Modeling</h4>
+                        <p>Applying generative AI techniques to disease modeling and outbreak prediction scenarios.</p>
+                        <span class="week-status status-upcoming">Upcoming</span>
+                    </div>
+                </div>
+                
+                <!-- Week 5 -->
+                <div class="week-card">
+                    <div class="week-header">
+                        <h3>Week 5</h3>
+                    </div>
+                    <div class="week-content">
+                        <h4>Ethical Considerations</h4>
+                        <p>Examining ethical implications of AI in health research and developing guidelines for responsible use.</p>
+                        <span class="week-status status-upcoming">Upcoming</span>
+                    </div>
+                </div>
+                
+                <!-- Week 6 -->
+                <div class="week-card">
+                    <div class="week-header">
+                        <h3>Week 6</h3>
+                    </div>
+                    <div class="week-content">
+                        <h4>AI for Scientific Writing</h4>
+                        <p>Leveraging AI tools to enhance scientific manuscript preparation and publication processes.</p>
+                        <span class="week-status status-upcoming">Upcoming</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Wingston Ng'ambi</h3>
+                    <p>Statistician, Epidemiologist, and Research Specialist focused on advancing public health through data-driven approaches.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-researchgate"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Me</a></li>
+                        <li><a href="#course">About the Course</a></li>
+                        <li><a href="#submissions">Weekly Submissions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Professional Focus</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Epidemiology</a></li>
+                        <li><a href="#">Data Analysis</a></li>
+                        <li><a href="#">Public Health Research</a></li>
+                        <li><a href="#">Disease Modeling</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Wingston Ng'ambi. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add animation to cards when they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for animation
+        document.querySelectorAll('.card, .week-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
