@@ -3,7 +3,6 @@
 <head>
     <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
     <script src="https://files.bpcontent.cloud/2025/11/05/15/20251105153613-Q8EX8IZ1.js" defer></script>
-  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wingston Ng'ambi | Generative AI Portfolio</title>
@@ -26,6 +25,8 @@
             --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
             --border-radius: 12px;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.18);
         }
 
         * {
@@ -496,6 +497,224 @@
             margin-bottom: 20px;
         }
 
+        /* Consultation Section */
+        .consultation {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .consultation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.05"><polygon fill="%233498db" points="0,0 1000,500 0,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .consultation-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            transition: all 0.5s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .profile-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .profile-card-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-card h3 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .profile-card-tagline {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .contact-info {
+            list-style: none;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .contact-info li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info li i {
+            color: var(--primary);
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .contact-info a {
+            color: var(--dark);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: var(--primary);
+        }
+
+        .consultation-info {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--glass-border);
+            transition: all 0.5s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .consultation-info.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .consultation-info h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .consultation-info ul {
+            list-style: none;
+            margin: 25px 0;
+        }
+
+        .consultation-info li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+        }
+
+        .consultation-info li:before {
+            content: '✓';
+            color: var(--primary);
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: white;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-body iframe {
+            width: 100%;
+            height: 520px;
+            border: none;
+            border-radius: 8px;
+        }
+
         /* Footer */
         footer {
             background: var(--dark);
@@ -568,7 +787,7 @@
 
         /* Responsive Design */
         @media (max-width: 992px) {
-            .about-content, .course-content {
+            .about-content, .course-content, .consultation-content {
                 grid-template-columns: 1fr;
             }
 
@@ -611,6 +830,10 @@
                 width: 80%;
                 margin-bottom: 15px;
             }
+
+            .modal {
+                width: 95%;
+            }
         }
     </style>
 </head>
@@ -625,6 +848,7 @@
                     <li><a href="#course">About the Course</a></li>
                     <li><a href="#submissions">Weekly Submissions</a></li>
                     <li><a href="#projects">Projects</a></li>
+                    <li><a href="#consultation">Consultation</a></li>
                 </ul>
             </nav>
         </div>
@@ -835,6 +1059,61 @@
         </div>
     </section>
 
+    <!-- Consultation Section -->
+    <section id="consultation" class="consultation">
+        <div class="container">
+            <h2>Contact for Consultation</h2>
+            <div class="consultation-content">
+                <div class="profile-card" id="profile-card">
+                    <img src="https://raw.githubusercontent.com/winnga/graph-ai-portfolio/main/win_cape_good_hope.jpg" alt="Wingston Ng'ambi" class="profile-card-img">
+                    <h3>Wingston Ng'ambi</h3>
+                    <p class="profile-card-tagline">Data-Driven Public Health Solutions</p>
+                    <p>Expert in epidemiology, statistical analysis, and AI applications for health research.</p>
+                    
+                    <ul class="contact-info">
+                        <li><i class="fas fa-phone"></i> <a href="tel:+265999443153">+265 999 443 153</a></li>
+                        <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/265999443153" target="_blank">WhatsApp: +265 999 443 153</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> Lilongwe, Malawi</li>
+                    </ul>
+                    
+                    <button class="btn btn-secondary" id="book-consultation-btn">Book Consultation</button>
+                </div>
+                
+                <div class="consultation-info" id="consultation-info">
+                    <h3>Professional Consultation Services</h3>
+                    <p>I offer specialized consultation services in epidemiology, data analysis, and public health research. Whether you need assistance with study design, statistical analysis, or implementing AI tools in your research workflow, I can help.</p>
+                    
+                    <h4>Areas of Expertise:</h4>
+                    <ul>
+                        <li>Epidemiological Study Design</li>
+                        <li>Statistical Analysis and Modeling</li>
+                        <li>Data Management and Quality Assurance</li>
+                        <li>Public Health Program Evaluation</li>
+                        <li>Disease Surveillance Systems</li>
+                        <li>AI Integration in Health Research</li>
+                        <li>Research Proposal Development</li>
+                        <li>Scientific Manuscript Preparation</li>
+                    </ul>
+                    
+                    <p>Click the "Book Consultation" button to schedule a consultation or request more information about my services.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consultation Modal -->
+    <div class="modal-overlay" id="consultation-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Book a Consultation</h3>
+                <button class="close-modal" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSebSVqW-1TzYzuFoEe34RvivtCZfQrWT3uzswSBr-R3-od5ow/viewform?embedded=true" width="100%" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -856,6 +1135,7 @@
                         <li><a href="#course">About the Course</a></li>
                         <li><a href="#submissions">Weekly Submissions</a></li>
                         <li><a href="#projects">Projects</a></li>
+                        <li><a href="#consultation">Consultation</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -911,6 +1191,48 @@
             card.style.transform = 'translateY(20px)';
             card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
             observer.observe(card);
+        });
+
+        // Consultation section animation
+        const consultationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.getElementById('profile-card').classList.add('animate');
+                    document.getElementById('consultation-info').classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        consultationObserver.observe(document.getElementById('consultation'));
+
+        // Modal functionality
+        const modal = document.getElementById('consultation-modal');
+        const openModalBtn = document.getElementById('book-consultation-btn');
+        const closeModalBtn = document.getElementById('close-modal');
+
+        openModalBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
         });
     </script>
 </body>
